@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>우미건설</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/jquery.bxslider.css">
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/jquery.bxslider.js"></script>
+	<script src="js/jquery.colorbox-min.js"></script>
+	<script src="js/wow.js"></script>
+	<script>
+		new WOW().init();
+		var vWidth;
+		$(document).ready(function(){
+			$(".slider").bxSlider({mode:"fade",controls:false,auto:true,pause:5000,speed:1200,touchEnabled:false,
+				onSliderLoad: function(){
+				$(".slider .txtWrap h2").addClass("animated fadeInLeft op");
+		        $(".slider .txtWrap p").addClass("animated fadeInRight op");
+		        $(".slider .title").addClass("up");
+				},
+				onSlideAfter: function(){
+		        $(".slider .txtWrap h2").addClass("animated fadeInLeft op");
+		        $(".slider .txtWrap p").addClass("animated fadeInRight op");
+		        $(".slider .title").addClass("up");
+		        },
+		        onSlideBefore: function(){
+		        $(".slider .txtWrap h2").removeClass("animated fadeInLeft op");
+		        $(".slider .txtWrap p").removeClass("animated fadeInRight op");
+		        $(".slider .title").removeClass("up");
+		        }
+			});
+
+			var ctSlider = $(".ct_slider").bxSlider({controls:false,pagerCustom:".newsWrap"});
+			$(".ct3 .nextBtn").click(function(){ctSlider.goToNextSlide()});
+			$(".ct3 .prevBtn").click(function(){ctSlider.goToPrevSlide()});
+
+			$(window).resize(function(){
+				$(".toggleMenu").removeClass("click");
+				$("#header_top").removeAttr("style");
+				$("#main_menu>ul").removeAttr("style");
+				$("#main_menu>ul>li").removeAttr("style");
+				$("#main_menu>ul>li>a").removeClass("on");
+				$(".sub_menu").removeAttr("style");
+				$(".overlayer").hide();
+
+				vWidth = $(document).width();
+
+            	if(vWidth < 1024){
+               	mViewer();
+               	console.log("mobile");
+            	}else{
+               	pcViewer();
+               	console.log("pc")
+            	};
+			});
+
+			vWidth = $(document).width();
+
+         	if(vWidth < 1024){
+			mViewer();
+            }else{
+            pcViewer();
+         	};
+			
+			function pcViewer(){
+				$("#main_menu").hover(function(){
+				$(".header_topWrap").css("background-color","rgba(41,47,55,1)");
+				$(".header_topWrap h1 a").css("background-image","url(images/logo_m.png)");
+				$(".sub_menu").stop().slideDown();
+				$(".sub_menu li").removeClass("animated fadeOut");
+				$(".sub_menu li").addClass("animated fadeInUp");
+				$("#header_top .lynn").addClass("hover");
+				$("#header_top h1").height(100);
+				for(var i = 1; i <7; i++){
+				$(".sub_menu li:nth-child("+i+")").css("animation-delay","0." + i + "s");	
+				};
+				$(".sub_menu li").css("animation-duration","0.4s");
+				},function(){
+				$(".header_topWrap").removeAttr("style");
+				$(".header_topWrap h1 a").removeAttr("style");
+				$(".sub_menu").stop().slideUp();
+				$(".sub_menu li").addClass("animated fadeOut");
+				$("#header_top .lynn").removeClass("hover");
+				$(".sub_menu li").removeAttr("style");
+				$("#header_top h1").removeAttr("style");
+				$(".sub_menu li").css("animation-duration","0.1s");
+			});
+			};
+		
+			// 스크롤
+			var headerOffset = $(".header_topWrap").offset();
+			$(window).scroll(function(){
+				if($(document).scrollTop() > 100){
+					if($(".toggleMenu").hasClass("click") == true){
+						$(".header_topWrap").removeClass("scroll animated fadeInDown");
+						console.log("click")}
+						else{$(".header_topWrap").addClass("scroll animated fadeInDown");}
+				}else{$(".header_topWrap").removeClass("scroll animated fadeInDown");};
+			});
+
+			// 배경전환
+			$(".personnel li").hover(function(){
+				var i = $(this).index();
+				$(".personnel").css("background","url(images/mid_bg_img" + i +".jpg) no-repeat center fixed").css("background-size","cover");
+			},function(){$(".personnel").removeAttr("style");}
+			);
+
+			// 패밀리사이트
+			$(".fSiteWrap").hover(function(){
+				$(".familySite").stop().slideDown();
+				$(".familySite a").removeClass("animated fadeOut");
+				$(".familySite a").addClass("animated fadeInUp");
+				for(var i = 0; i < 6; i++){
+					$(".familySite a").eq(i).css("animation-delay",0.3 - 0.05*i + "s");	
+				};
+			},
+				function(){$(".familySite").stop().slideUp();
+				$(".familySite a").removeClass("animated fadeInUp");
+				$(".familySite a").addClass("animated fadeOut");
+				$(".familySite a").css("animation-delay",0);
+			});
+
+			
+			// 토글메뉴 클릭
+			function mViewer(){
+	            $("#main_menu>ul>li>a").click(function(event){
+	               $("#main_menu>ul>li").removeAttr("style");
+	               $("#main_menu>ul>li>a").removeClass("on");
+	               $(this).addClass("on");
+	               var thisH = $(this).height();
+	                var pI = $(this).parent().index();
+	                var sMH = $("#main_menu>ul>li").eq(pI).children("ul").height();
+	                $("#main_menu>ul>li").eq(pI).css("height",sMH + thisH); 
+	                event.preventDefault();
+	                console.log(pI);
+	                console.log($("#main_menu>ul>li").eq(pI).height());
+	                if($("#main_menu>ul>li").eq(pI).height() > 50){
+	                	$("#main_menu>ul>li").removeAttr("style");
+	               		$("#main_menu>ul>li>a").removeClass("on");
+	                };
+	           })};
+
+			$(".toggleMenu").click(function(){
+				if($(".toggleMenu").attr("class") == "toggleMenu"){
+					$(".toggleMenu").addClass("click");
+					$("#main_menu>ul").animate({left:0},300);
+					$(".overlayer").show();
+				}
+				else{$(".toggleMenu").removeClass("click");
+				$("#main_menu>ul").animate({left:"-100%"},300);
+				$("#main_menu>ul>li").removeAttr("style");
+				$("#main_menu>ul>li>a").removeClass("on");
+				$(".overlayer").hide();
+			};	
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<header id="main_header">
+		<div class="imgLoad">
+			<img src="images/mid_bg_img0.jpg" alt="">
+			<img src="images/mid_bg_img1.jpg" alt="">
+			<img src="images/mid_bg_img2.jpg" alt="">
+			<img src="images/mid_bg_img3.jpg" alt="">
+			<img src="images/mid_bg_img4.jpg" alt="">
+			<img src="images/bg_mainvisual_01.jpg" alt="">
+			<img src="images/bg_mainvisual_01_m.jpg" alt="">
+			<img src="images/bg_mainvisual_02.jpg" alt="">
+			<img src="images/bg_mainvisual_02_m.jpg" alt="">
+			<img src="images/bg_mainvisual_03.jpg" alt="">
+			<img src="images/bg_mainvisual_03_m.jpg" alt="">
+		</div>
+		<div class="header_topWrap">
+			<div id="header_top" class="clearfix m0a">
+				<div class="overlayer"></div>
+				<h1 class="logo blind"><a href="index.html#main_header">우미건설</a></h1>
+				<nav id="main_menu">
+					<ul class="fwb mobile">
+						<li>
+							<a href="#"><span>우미소개</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">
+								<li><a href="#"><span>기업가치관</span></a></li>
+								<li><a href="#"><span>인사말</span></a></li>
+								<li><a href="#"><span>연혁</span></a></li>
+								<li><a href="#"><span>조직도</span></a></li>
+								<li><a href="#"><span>찾아오시는 길</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span>사업소개</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">
+								<li><a href="#"><span>사업분야 안내</span></a></li>
+								<li><a href="#"><span>주택사업</span></a></li>
+								<li><a href="#"><span>건축사업</span></a></li>
+								<li><a href="#"><span>토목사업</span></a></li>
+								<li><a href="#"><span>기타사업</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span>지속가능경영</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">	
+								<li><a href="#"><span>기업윤리</span></a></li>
+								<li><a href="#"><span>품질경영</span></a></li>
+								<li><a href="#"><span>지식경영</span></a></li>
+								<li><a href="#"><span>사회공헌</span></a></li>
+								<li><a href="http://www.cleanwoomi.co.kr/" target="_blank"><span>사이버신문고</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span>홍보센터</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">
+								<li><a href="#"><span>뉴스룸</span></a></li>
+								<li><a href="#"><span>자료실</span></a></li>
+								<li><a href="#"><span>CI/BI</span></a></li>
+								<li><a href="https://www.youtube.com/channel/UCzcVoIAQMH25GRyBmbA81wQ" target="_blank"><span>린 유튜브</span></a></li>
+								<li><a href="https://www.instagram.com/accounts/login/?next=/woomi_lynn/" target="_blank"><span>린 인스타그램</span></a></li>
+								<li><a href="https://blog.naver.com/lynnblog" target="_blank"><span>린 블로그</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span>채용정보</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">
+								<li><a href="http://recruit.woomi.co.kr/" target="_blank"><span>채용안내</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span>고객센터</span><div class="mSlide"><img src="images/ftTopBtn.png" alt=""></div></a>
+							<ul class="sub_menu">
+								<li><a href="#"><span>고객지원안내</span></a></li>
+							</ul>
+						</li>
+					</ul>
+					<div class="lynn">
+					<a href="http://lynn.co.kr" target="_blank">
+						<div class="lynn_hover"></div>
+						<img src="images/woomi_lynn02.png" alt="" class="poCen back">
+						<img src="images/woomi_lynn01.png" alt="" class="poCen front">
+					</a>
+				</div>
+				</nav>
+				<div class="toggleMenu">
+					<div class="bar1"></div>
+					<div class="bar2"></div>
+					<div class="bar3"></div>
+				</div>
+			</div>
+		</div>
+		<div class="sliderWrap">
+			<ul class="slider">
+				<li class="slider_1st">
+					<div class="txtWrap">
+						<h2 class="pb10">선도적인 일류 종합부동산회사</h2>
+						<p>PREMIER SPACE & VALUE CREATOR</p>
+					</div>
+					<div class="title tit01"><img src="images/tit_housing.png" alt=""></div>
+				</li>
+				<li class="slider_2st">
+					<div class="txtWrap">
+						<h2 class="pb10">선도적인 일류 종합부동산회사</h2>
+						<p>PREMIER SPACE & VALUE CREATOR</p>
+					</div>
+					<div class="title tit02"><img src="images/tit_building.png" alt=""></div>
+				</li>
+				<li class="slider_3st">
+					<div class="txtWrap">
+						<h2 class="pb10">선도적인 일류 종합부동산회사</h2>
+						<p>PREMIER SPACE & VALUE CREATOR</p>
+					</div>
+					<div class="title tit03"><img src="images/tit_civil.png" alt=""></div>
+				</li>
+			</ul>
+		</div>
+		<div class="content mb80">
+			<ul class="clearfix">
+				<li class="ct1 bgc_00529B hv_ul3 wow fadeInDown" data-wow-delay="0.1s">
+					<div class="iconWrap poCen tac">
+						<img src="images/logo_symbol.png" alt="" class="pb20 aniB">
+						<p class="fwb">우미 VISION</p>
+					</div>
+				</li>
+				<li class="ct2 hv_sc2 hv_sc3 wow fadeInDown" data-wow-delay="0.3s">
+					<img src="images/main_company_img.jpg" alt="" class="poXCen2">
+					<div class="txtWrap">
+						<img src="images/play_btn2.png" alt="" class="poCen">
+						<img src="images/play_btn1.png" alt="" class="poCen roll">
+					</div>
+				</li>
+				<li class="ct3 cp_p01 wow fadeInDown" data-wow-delay="0.5s">
+					<h3>뉴스룸</h3>
+					<div class="newsWrap">
+						<a href="#" data-slide-index="0">우미건설, 상업시설·지식센터까지…부동산 사업모델 다각화</a>
+						<a href="#" data-slide-index="1">[Jump-up!] 우미건설, 시공능력평가 첫 20위권 진입</a>
+						<a href="#" data-slide-index="2">이석준 우미건설 부회장, ‘플라워 버킷 챌린지’ 동참</a>
+						<a href="#" data-slide-index="3">LH, 민간임대주택 공모…제일·우미·서한건설 선정</a>
+					</div>
+					<div class="btn clearfix">
+						<div class="prevBtn"></div>
+						<div class="nextBtn"></div>
+					</div>
+				</li>
+				<li class="ct4 wow fadeInDown" data-wow-delay="0.5s">
+					<div class="ct_slider">
+						<div><a href="#"><img src="images/news01.png" alt="" class="poXCen2"></a></div>
+						<div><a href="#"><img src="images/news02.png" alt="" class="poXCen2"></a></div>
+						<div><a href="#"><img src="images/news03.png" alt="" class="poXCen2"></a></div>
+						<div><a href="#"><img src="images/news04.png" alt="" class="poXCen2"></a></div>
+					</div>
+				</li>
+				<li class="ct8Tablet hv_sc2 wow fadeInLeft" data-wow-delay="0.1s">
+					<img src="images/img_works01_tablet.jpg" alt="" class="poXCen2">
+					<div class="txtWrap cp_p01 hv_bgc2">
+						<h3 class="txtShodow">HOUSING WORKS</h3>
+						<p class="txtShodow">사람과 공간을 연결해<br>새로운 주거문화를 만듭니다</p>
+						<a href="#" class="more hv_ul">
+							<img src="images/icon_more2.png" alt="" class="poXCen">
+							<p class="col_fff pt60 tac">주택사업 주요실적 바로가기</p>
+						</a>
+					</div>
+				</li>
+				<li class="ct5 bgc_292F37 hv_ul3 wow fadeInRight" data-wow-delay="0.1s">
+					<div class="iconWrap poCen tac">
+						<img src="images/mct_housing_icon.png" alt="" class="pb20 aniB">
+						<p class="fwb">주택사업</p>
+					</div>
+				</li>
+				<li class="ct6 bgc_00529B hv_ul3 wow fadeInRight" data-wow-delay="0.3s">
+					<div class="iconWrap poCen tac">
+						<img src="images/mct_building_icon.png" alt="" class="pb20 aniB">
+						<p class="fwb">건축사업</p>
+					</div>
+				</li>
+				<li class="ct7 w50p hv_sc2 wow fadeInRight" data-wow-delay="0.5s">
+					<img src="images/img_works02.jpg" alt="" class="poXCen2">
+					<div class="txtWrap cp_p01 hv_bgc1">
+						<h3 class="txtShodow">BUILDING WORKS</h3>
+						<p class="txtShodow">도시의 표정을 만드는 <br>랜드마크가 늘어갑니다</p>
+						<a href="#" class="more hv_ul">
+							<img src="images/icon_more.png" alt="" class="poXCen">
+							<p class="col_fff pt60 tac">건축사업 주요실적 바로가기</p>
+						</a>
+					</div>
+				</li>
+				<li class="ct8 h50p hv_sc2 wow fadeInLeft" data-wow-delay="0.1s">
+					<img src="images/img_works01.jpg" alt="" class="poXCen2">
+					<div class="txtWrap cp_p01 hv_bgc2">
+						<h3 class="txtShodow">HOUSING WORKS</h3>
+						<p class="txtShodow">사람과 공간을<br>연결해 새로운<br>주거문화를<br>만듭니다</p>
+						<a href="#" class="more hv_ul">
+							<img src="images/icon_more2.png" alt="" class="poXCen">
+							<p class="col_fff pt60 tac">주택사업 주요실적 바로가기</p>
+						</a>
+					</div>
+				</li>
+				<li class="ct9 w50p hv_sc2 wow fadeInLeft" data-wow-delay="0.3s">
+					<img src="images/img_works03.jpg" alt="" class="poXCen2">
+					<div class="txtWrap cp_p01 hv_bgc2">
+						<h3 class="txtShodow">CIVIL WORKS</h3>
+						<p class="txtShodow">인프라 건설을 통해<br>국토에 생명력을 부여합니다</p>
+						<a href="#" class="more hv_ul">
+							<img src="images/icon_more2.png" alt="" class="poXCen">
+							<p class="col_fff pt60 tac">토목사업 주요실적 바로가기</p>
+						</a>
+					</div>
+				</li>
+				<li class="ct10 bgc_292F37 hv_ul3 wow fadeInLeft" data-wow-delay="0.5s">
+					<div class="iconWrap poCen tac">
+						<img src="images/mct_civil_icon.png" alt="" class="pb20 aniB">
+						<p class="fwb">토목사업</p>
+					</div>
+				</li>
+				<li class="ct11 bgc_00529B hv_ul3 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="iconWrap poCen tac">
+						<img src="images/mct_plant_icon.png" alt="" class="pb20 aniB">
+						<p class="fwb">플랜트사업</p>
+					</div>
+				</li>
+				<li class="ct12 w50p hv_sc2 wow fadeInUp" data-wow-delay="0.3s">
+					<img src="images/img_works04.jpg" alt="" class="poXCen2">
+					<div class="txtWrap cp_p01 hv_bgc1">
+						<h3 class="txtShodow">PLANT WORKS</h3>
+						<p class="txtShodow">고도의 기술 역량으로<br>산업발전을 이끌어 갑니다</p>
+						<a href="#" class="more hv_ul">
+							<img src="images/icon_more.png" alt="" class="poXCen">
+							<p class="col_fff pt60 tac">플랜트사업 주요실적 바로가기</p>
+						</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="personnel mb80">
+		<div class="section pt60 col_fff">
+			<p class="txtShodow2 tac">기업가치관</p>
+			<h2 class="txtShodow2 pb60 tac">WOOMI VALUE</h2>
+			<ul class="clearfix">
+				<li class="cp_p01 hv_ul2 wow fadeInDown" data-wow-delay="0.1s">
+						<img src="images/person_icon1.png" alt="" class="poXCen">
+						<h3 class="txtShodow2 tul tac pb20">MISSION</h3>
+						<p class="">우리는 사람·자연·역사에 대한<br>통찰을 바탕으로<br>고객의 꿈과 행복을 위해<br>더 나은 공간의 가치를 창조한다</p>
+						<a href="#" class="moreBtn col_fff">
+							<div class="bar1"></div>
+							<div class="bar2"></div>
+							<div class="bar3"></div>
+						</a>
+				</li>
+				<li class="cp_p01 hv_ul2 wow fadeInDown" data-wow-delay="0.3s">
+						<img src="images/person_icon2.png" alt="" class="poXCen">
+						<h3 class="txtShodow2 tul tac pb20">TRUST</h3>
+						<p class="pb10">신뢰는 약속을 철저히 지키는<br>것부터 시작한다</p>
+						<p class="">항상 상대방의 입장에서 생각하고<br>배려하는 자세를 갖는다</p>
+						<a href="#" class="moreBtn col_fff">
+							<div class="bar1"></div>
+							<div class="bar2"></div>
+							<div class="bar3"></div>
+						</a>
+				</li>
+				<li class="cp_p01 hv_ul2 wow fadeInDown" data-wow-delay="0.5s">
+						<img src="images/person_icon3.png" alt="" class="poXCen">
+						<h3 class="txtShodow2 tul tac pb20">LEARNING</h3>
+						<p class="pb10">성장은 함께 하는 것입니다</p>
+						<p class="">끊임없이 배우고 공유하고 소통해야 합니다</p>
+						<a href="#" class="moreBtn col_fff">
+							<div class="bar1"></div>
+							<div class="bar2"></div>
+							<div class="bar3"></div>
+						</a>
+				</li>
+				<li class="cp_p01 hv_ul2 wow fadeInDown" data-wow-delay="0.7s">
+						<img src="images/person_icon4.png" alt="" class="poXCen">
+						<h3 class="txtShodow2 tul tac pb20">CHALLENGE</h3>
+						<p class="pb10">유연한 사고와 민첩한 행동이 발전을 가져온다</p>
+						<p class="">목표를 세우고 최고의 성과를 도출한다</p>
+						<a href="#" class="moreBtn col_fff">
+							<div class="bar1"></div>
+							<div class="bar2"></div>
+							<div class="bar3"></div>
+						</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="subContent mb80 clearfix">
+		<div class="management hv_bgc3 hv_sc3 wow fadeInLeft" data-wow-delay="0.3s">
+			<img src="images/management.jpg" alt="" class="poCen hv_sc3">
+			<div class="txtWrap cp_p01 col_fff">
+				<h3 class="txtShodow">BUSINESS ETHICS</h3>
+				<p class="txtShodow">선도적인 일류 종합부동산회사를 지향한다</p>
+				<a href="#" class="more hv_ul">
+					<img src="images/icon_more2.png" alt="" class="poXCen">
+					<p class="col_fff pt60 tac">기업윤리 바로가기</p>
+				</a>
+			</div>
+		</div>
+		<div class="pr clearfix">
+			<div class="iconBox1 hv_ul2 bgc_292F37 wow fadeInLeft" data-wow-delay="0.3s">
+				<div class="txtWrap cp_p01 col_fff">
+					<h3 class="">채용안내</h3>
+					<p class="tul">우미건설의 미래가 될<br />창의적인 인재를 찾습니다</p>
+				</div>
+				<div class="icon">
+					<img src="images/pr_icon1.png" alt="" class="front">
+					<img src="images/pr_icon2.png" alt="" class="back">
+				</div>
+				<a href="http://recruit.woomi.co.kr/" target="_balnk" class="moreBtn">
+					<div class="bar1"></div>
+					<div class="bar2"></div>
+					<div class="bar3"></div>
+				</a>
+			</div>
+			<div class="imgBox1 hv_sc3 wow fadeInDown" data-wow-delay="0.3s">
+				<img src="images/pr_img01.jpg" alt="" class="poCen hv_sc3">
+			</div>
+			<div class="imgBox2 hv_sc3 wow fadeInUp" data-wow-delay="0.3s">
+				<img src="images/pr_img02.jpg" alt="" class="poCen hv_sc3">
+			</div>
+			<div class="iconBox2 hv_ul2 wow fadeInRight" data-wow-delay="0.3s">
+				<div class="txtWrap cp_p01">
+					<h3 class="">린 인스타그램</h3>
+					<p class="tul">마음을 짓는 집,<br>멀리 보는 집 우미 Lynn</p>
+				</div>
+				<div class="icon">
+					<img src="images/pr_lynn1.png" alt="" class="front">
+					<img src="images/pr_lynn2.png" alt="" class="back">
+				</div>
+				<a href="https://www.instagram.com/accounts/login/?next=/woomi_lynn/" target="_blank" class="moreBtn">
+					<div class="bar1"></div>
+					<div class="bar2"></div>
+					<div class="bar3"></div>
+				</a>
+			</div>
+		</div>		
+	</div>
+	<div class="banner clearfix mb80">
+		<div class="bannerTxt cp_p01 col_fff wow fadeInLeft">
+			<p>WE BUILD TOMORROW,<br>TOGETHER FOR A BETTER<br>FUTURE !</p>
+			<a href="#" class="col_fff tac">
+				<p class="">회사소개서 보기</p>
+				<div class="hv">
+					<p class="col_00529B">회사소개서 보기</p>
+				</div>
+			</a>
+		</div>
+		<div class="bannerImg wow fadeInRight">
+			<img src="images/banner_img1.jpg" alt="" class="poCen">
+		</div>
+	</div>
+	<footer id="footer">
+		<div class="ft_content pt50 clearfix">
+			<img src="images/logo_f.png" alt="">
+			<div class="fSiteWrap">
+				<p>패밀리 사이트</p>
+				<img src="images/ftTopBtn.png" alt="">
+				<ul class="familySite">
+					<li><a href="http://www.lynn.co.kr/" target="_balnk" class="hv_ul">우미린</a></li>
+					<li><a href="https://www.lakecomo.co.kr/" target="_balnk" class="hv_ul">레이크꼬모</a></li>
+					<li><a href="http://recruit.woomi.co.kr" target="_balnk" class="hv_ul">우미채용</a></li>
+					<li><a href="http://lynnstay-cb.co.kr/" target="_balnk" class="hv_ul">충북혁신도시 린스테이</a></li>
+					<li><a href="http://www.ilovewm.co.kr/" target="_balnk" class="hv_ul">이노샘</a></li>
+					<li><a href="http://www.cleanwoomi.co.kr/" target="_balnk" class="hv_ul">사이버신문고</a></li>
+					<li><a href="http://b2b.woomi.co.kr/" target="_balnk" class="hv_ul">협력업체</a></li>			
+				</ul>	
+			</div>
+			<div class="fLogo">
+				<img src="images/icon_logo_f1.png" alt="" class="fLogo1">
+				<img src="images/icon_logo_f2.png" alt="" class="fLogo2">
+			</div>
+			<p class="addr tac">06292 서울시 강남구 언주로 30길 39 린스퀘어(도곡동 467-14) 대표전화 1588-9707</p>
+			<p class="copy tac">Copyright (c) 2021 WOOMI CONSTRUCTION CORP. All rights reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>
