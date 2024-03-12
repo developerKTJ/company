@@ -1,7 +1,8 @@
 # 우미건설 포트폴리오 웹사이트
 
 우미건설의 공식 포트폴리오 웹사이트입니다. 본 웹사이트는 회사 소개, 사업 영역, 지속 가능 경영, 홍보 센터, 채용 정보, 고객 지원 안내 등 다양한 정보를 제공합니다.
-[우미건설 바로가기](https://developerKTJ.github.io/company/index.html)
+
+https://developerKTJ.github.io/company/index.html
 
 
 ## 프로젝트 소개
