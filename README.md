@@ -1,16 +1,16 @@
 # 프로젝트 소개
 
-https://developerKTJ.github.io/company/index.html
+[웹사이트 바로가기](https://developerKTJ.github.io/company/index.html)
 
 >이 포트폴리오 웹사이트는 사용자가 다양한 장치에서 최적의 사용자 경험을 할 수 있도록 반응형 디자인을 적용하여 개발되었습니다.\
 >모바일, 태블릿, 데스크톱 등 다양한 화면 크기에 맞춰 콘텐츠가 유연하게 조정되어, 사용자에게 일관된 정보와 인터페이스를 제공합니다.
 
 ### 개발 기간 및 인원
->10일
+>10일\
 >개인프로젝트
 <br/>
 
-### 기술 스택
+## 기술 스택
 
 ![html](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&amp;logo=html5&amp;logoColor=white)
 ![css](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&amp;logo=css3&amp;logoColor=white)
