@@ -8,7 +8,7 @@
 >개인프로젝트
 
 ### 웹사이트 바로가기
->[링크](https://developerKTJ.github.io/company/index.html){:target="_blank"}
+>URL https://developerKTJ.github.io/company/index.html
 <br/>
 
 ## 기술 스택
